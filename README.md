@@ -6,9 +6,9 @@ Includes: NTU forecast vs actual, PLC setpoint ramp, PID / stroke / VFD auto-tun
 spike simulator replay, jar-test calibration → recipe, staged autonomy, twin model, audit trail.
 
 ## Run
-    bun install      # or: npm install --legacy-peer-deps
-    bun run dev
-    bun run build
+    npm install --legacy-peer-deps
+    npm run dev
+    npm run build
 
 ## Layout
 - `src/routes/index.tsx` — the whole alum dosing module (was `src/routes/alum-dosing.tsx`)
@@ -23,5 +23,5 @@ spike simulator replay, jar-test calibration → recipe, staged autonomy, twin m
   old values were invalid and the forecast line/markers didn't draw)
 - Guarded the NTU chart against an empty series on first render (NaN SVG attributes)
 
-Note: `bun.lock` still resolves through Lovable's package mirror. Outside Lovable, delete
-`bun.lock` / `bunfig.toml` and install from the public registry.
+Note: `bun.lock` / `bunfig.toml` were removed because they resolved through Lovable's private
+package mirror. Install from the public npm registry instead.
