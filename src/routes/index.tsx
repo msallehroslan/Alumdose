@@ -262,7 +262,7 @@ function AlumDosingPage() {
   const [audit, setAudit] = useState<AuditEntry[]>([
     { ts: Date.now() - 1000 * 60 * 4,  action: "Dose recommendation", detail: "+8% stroke · target SCV −105", by: "AI" },
     { ts: Date.now() - 1000 * 60 * 12, action: "Recommendation accepted", detail: "Setpoint 38 → 41 ppm · applied via PLC", by: "Operator" },
-    { ts: Date.now() - 1000 * 60 * 28, action: "Model retrained", detail: "Rainfall model refreshed · UTHM node · confidence 0.91", by: "AI" },
+    { ts: Date.now() - 1000 * 60 * 28, action: "Model retrained", detail: "Rainfall model refreshed (simulated) · confidence 0.91", by: "AI" },
   ]);
   const [planDiff, setPlanDiff] = useState<{
     prev: PlanSnapshot; next: PlanSnapshot; influences: Influence[]; ts: number; snapshotId: string;
@@ -491,7 +491,7 @@ function AlumDosingPage() {
               <div className="mt-1 flex flex-wrap items-center gap-3 text-[11px] text-muted-foreground">
                 <span>Confidence</span>
                 <ConfidenceBar value={confidence} />
-                <span>Model: rainfall→NTU · v3.2 · Edge inference @ UTHM node</span>
+                <span>Model: rainfall→NTU · illustrative · simulated edge inference</span>
               </div>
               <div className="mt-3 flex flex-wrap items-center gap-2">
                 <button
@@ -616,8 +616,8 @@ function AlumDosingPage() {
           eyebrow="Predict"
           icon={CloudRain}
           rows={[
-            { k: "Rainfall (JPS station 3313040)", v: `${now.rainfall.toFixed(1)} mm/h`, tone: now.rainfall > 15 ? "warning" : "muted" },
-            { k: "River level (Selangor U/S)", v: `${(2.1 + now.rainfall / 30).toFixed(2)} m`, tone: "muted" },
+            { k: "Rainfall (example rain gauge)", v: `${now.rainfall.toFixed(1)} mm/h`, tone: now.rainfall > 15 ? "warning" : "muted" },
+            { k: "River level (example upstream station)", v: `${(2.1 + now.rainfall / 30).toFixed(2)} m`, tone: "muted" },
             { k: "Catchment lag", v: "≈ 45 min", tone: "muted" },
             { k: "Weather (next 3h)", v: forecast.length ? `${Math.max(...forecast.filter((p) => p.step > 0 && p.step <= 12).map((p) => p.rainfall), 0).toFixed(0)} mm forecast` : "—", tone: "cyan" },
           ]}
@@ -705,7 +705,7 @@ function AlumDosingPage() {
         <div className="glass-card p-5">
           <div className="mb-2 flex items-center justify-between">
             <div>
-              <div className="text-[10px] uppercase tracking-[0.18em] text-cyan">Twin model</div>
+              <div className="text-[10px] uppercase tracking-[0.18em] text-cyan">Twin model · illustrative values</div>
               <h3 className="font-display text-lg font-semibold">Rainfall → NTU → dose · v3.2</h3>
             </div>
           </div>
@@ -776,16 +776,19 @@ function AlumDosingPage() {
       <div className="glass-card mt-4 p-5">
         <div className="mb-3 flex items-center justify-between">
           <div>
-            <div className="text-[10px] uppercase tracking-[0.18em] text-cyan">Expected outcomes · pilot</div>
-            <h3 className="font-display text-lg font-semibold">What the twin puts in front of the plant</h3>
+            <div className="text-[10px] uppercase tracking-[0.18em] text-cyan">Pilot KPIs · to be measured</div>
+            <h3 className="font-display text-lg font-semibold">What the pilot will measure</h3>
           </div>
         </div>
         <div className="grid gap-3 md:grid-cols-4">
-          <Outcome icon={TrendingUp} label="Earlier spike detection" v="≥ 45 min" hint="vs reactive PID/SCD" />
-          <Outcome icon={Sparkles} label="Coagulant saved" v="6 – 12%" hint="vs 7-day baseline" />
-          <Outcome icon={ShieldCheck} label="Filtered NTU excursions" v="−80%" hint="above 1.0 NTU / week" />
-          <Outcome icon={Settings2} label="Operator interventions" v="−60%" hint="manual dose changes / shift" />
+          <Outcome icon={TrendingUp} label="Forecast lead time" v="To measure" hint="useful warning time vs reactive PID/SCD" />
+          <Outcome icon={Sparkles} label="Chemical efficiency" v="To measure" hint="alum use vs baseline, normalised to load" />
+          <Outcome icon={ShieldCheck} label="Process stability" v="To measure" hint="time outside target SCV / settled band" />
+          <Outcome icon={Settings2} label="Operator workload" v="To measure" hint="manual interventions and setpoint changes" />
         </div>
+        <p className="mt-3 text-[11px] text-muted-foreground">
+          No savings figure is claimed before the baseline is measured. Results will come from verified pilot-site data.
+        </p>
       </div>
     </IntelligenceShell>
   );
