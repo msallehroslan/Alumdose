@@ -6,7 +6,7 @@ Includes: NTU forecast vs actual, PLC setpoint ramp, PID / stroke / VFD auto-tun
 spike simulator replay, jar-test calibration → recipe, staged autonomy, twin model, audit trail.
 
 ## Run
-    npm install --legacy-peer-deps
+    npm install      # .npmrc sets legacy-peer-deps
     npm run dev
     npm run build
 

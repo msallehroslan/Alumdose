@@ -12,5 +12,6 @@ Standalone Predictive Alum Auto-Dosing module, extracted from the AquaTwin water
 - Keep the "PLC has final control" / advisory framing; AI only recommends setpoints.
 
 ## Commands
-- Install: `npm install --legacy-peer-deps` (plain `npm install` crashes on npm 10 with an arborist `edgesOut` error)
+- Install: `npm install` (`.npmrc` sets `legacy-peer-deps=true`; without it npm 10 crashes with an arborist `edgesOut` error)
+- Cloudflare Pages build: `NITRO_PRESET=cloudflare_pages npm run build`, output dir `dist`
 - Dev: `npm run dev` · Build: `npm run build` · Type-check: `npx tsc --noEmit`
