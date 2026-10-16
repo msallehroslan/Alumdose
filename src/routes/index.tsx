@@ -143,9 +143,9 @@ function guardrailInfluences(prev: PlanSnapshot, next: PlanSnapshot): Influence[
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Predictive Alum Auto-Dosing — TAAT AquaTwin" },
-      { name: "description", content: "Edge-AI predictive alum dosing: fuses upstream river, weather and downstream SCV signals into a live coagulant setpoint recommendation while the PLC keeps final control." },
-      { property: "og:title", content: "Predictive Alum Auto-Dosing — TAAT AquaTwin" },
+      { title: "PADS · Predictive Alum Dosing — AquaTwins (demo)" },
+      { name: "description", content: "Edge-AI predictive alum dosing: fuses upstream river, weather and downstream SCV signals into a coagulant setpoint recommendation while the PLC keeps final control." },
+      { property: "og:title", content: "PADS · Predictive Alum Dosing — AquaTwins (demo)" },
       { property: "og:description", content: "Edge-AI predictive coagulant dosing with staged pathway to guarded autonomy." },
     ],
   }),
@@ -402,7 +402,7 @@ function AlumDosingPage() {
       },
       {
         ts: nowTs + 2,
-        action: `Jar-test recipe v${nextVersion} applied → live plan refreshed`,
+        action: `Jar-test recipe v${nextVersion} applied → plan refreshed`,
         detail: `${note} · snapshot ${snapshot.id} · upstream ${upstream} · downstream ${downstream} · new plan ${r.baseDose} → ${nextRecommended} ppm in ${rampSteps} step${rampSteps === 1 ? "" : "s"} (ETA ${nextEta}m, ±${r.rampPpmPer5min} ppm/5m) · influenced by ${topInfluence}`,
         by: "Operator" as const,
         snapshotId: snapshot.id,
@@ -451,7 +451,7 @@ function AlumDosingPage() {
           <button
             onClick={() => setLoop(loop === "advise" ? "hold" : "advise")}
             className="glass-panel flex items-center gap-1.5 px-3 py-1.5 text-xs hover:text-cyan"
-            title="Pause or resume live AI recommendations"
+            title="Pause or resume AI recommendations"
           >
             {loop === "advise"
               ? <><PauseCircle className="h-3.5 w-3.5 text-warning" /> Pause AI</>
@@ -469,7 +469,7 @@ function AlumDosingPage() {
         <div className="grid gap-0 lg:grid-cols-[1.35fr_1fr]">
           <div className="border-b border-glass-border p-5 lg:border-b-0 lg:border-r">
             <div className="mb-2 flex items-center justify-between">
-              <div className="text-[10px] uppercase tracking-[0.18em] text-cyan">Operator view · Live</div>
+              <div className="text-[10px] uppercase tracking-[0.18em] text-cyan">Operator view · Demo</div>
               <StageBadge stage={stage} />
             </div>
 
@@ -526,11 +526,11 @@ function AlumDosingPage() {
         </div>
       </div>
 
-      {/* Live dosing plan — refreshes on every recipe update */}
+      {/* Dosing plan — refreshes on every recipe update */}
       <div className={`glass-card mt-4 p-5 transition ${recipeFlash ? "border-cyan/70 shadow-glow" : ""}`}>
         <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
           <div>
-            <div className="text-[10px] uppercase tracking-[0.18em] text-cyan">Live dosing plan · execution</div>
+            <div className="text-[10px] uppercase tracking-[0.18em] text-cyan">Dosing plan · simulated</div>
             <h3 className="mt-0.5 font-display text-lg font-semibold">
               PLC setpoint ramp{" "}
               <span className="font-mono text-cyan">{currentDose} → {recommendedDose} ppm</span>
@@ -993,7 +993,7 @@ function JarTestCalibration({
           </span>
           <div>
             <div className="text-[10px] uppercase tracking-[0.18em] text-cyan">Bench calibration</div>
-            <h3 className="font-display text-lg font-semibold">Jar-test → recipe → live setpoint</h3>
+            <h3 className="font-display text-lg font-semibold">Jar-test → recipe → setpoint</h3>
             <div className="mt-0.5 text-[11px] text-muted-foreground">
               Recipe: <span className="font-mono text-foreground">{recipe.baseDose} ppm · pH {recipe.targetPh.toFixed(1)}</span>
               {" · "}Last calibrated{" "}
@@ -1112,7 +1112,7 @@ function JarTestCalibration({
             </div>
 
             <div className="rounded-lg border border-glass-border bg-surface-1/40 p-3 text-xs">
-              <div className="mb-1 text-[10px] uppercase tracking-wider text-muted-foreground">Impact on live setpoint</div>
+              <div className="mb-1 text-[10px] uppercase tracking-wider text-muted-foreground">Impact on setpoint</div>
               <div className="grid grid-cols-2 gap-2 text-[11px]">
                 <div>
                   <div className="text-muted-foreground">Current baseline</div>
@@ -1123,7 +1123,7 @@ function JarTestCalibration({
                   <div className="font-mono text-sm text-cyan">{proposal?.baseDose ?? "—"} ppm</div>
                 </div>
                 <div>
-                  <div className="text-muted-foreground">Live recommendation now</div>
+                  <div className="text-muted-foreground">Recommendation now</div>
                   <div className="font-mono text-sm">{recommendedDose} ppm ({doseAdjustPct >= 0 ? "+" : ""}{doseAdjustPct}%)</div>
                 </div>
                 <div>

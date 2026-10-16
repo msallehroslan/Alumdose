@@ -1,4 +1,4 @@
-import { Bell, Search, TestTube, type LucideIcon } from "lucide-react";
+import { Bell, Info, Search, TestTube, type LucideIcon } from "lucide-react";
 
 export default function IntelligenceShell({
   title,
@@ -18,10 +18,19 @@ export default function IntelligenceShell({
   return (
     <div className="flex min-h-screen w-full bg-gradient-hero text-foreground">
       <div className="flex min-w-0 flex-1 flex-col">
+        <div
+          role="note"
+          className="flex items-center justify-center gap-2 border-b border-warning/40 bg-warning/15 px-4 py-2 text-center text-xs font-medium text-warning"
+        >
+          <Info className="h-4 w-4 shrink-0" />
+          <span>
+            CONCEPTUAL DEMO · SYNTHETIC DATA · SHADOW MODE: not connected to any plant; all values are illustrative.
+          </span>
+        </div>
         <header className="sticky top-0 z-40 flex h-16 items-center gap-4 border-b border-glass-border bg-background/60 px-6 backdrop-blur-xl">
           <div className="flex items-center gap-2 text-sm font-semibold">
             <span className="grid h-7 w-7 place-items-center rounded-md bg-gradient-brand"><TestTube className="h-4 w-4 text-primary-foreground" /></span>
-            <span className="hidden font-display tracking-tight sm:inline">Alum Dosing</span>
+            <span className="hidden font-display tracking-tight sm:inline">PADS · AquaTwins</span>
           </div>
           <div className="glass-panel ml-2 flex w-full max-w-md items-center gap-2 px-3 py-2 text-sm">
             <Search className="h-4 w-4 text-muted-foreground" />
